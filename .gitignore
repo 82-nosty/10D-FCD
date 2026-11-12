@@ -10,6 +10,9 @@ dist/
 build/
 Output/
 *.spec
+*.iss
+build_exe.bat
+build_dmg.sh
 
 # 3D Print slicer machine code (Keep source 3mf/stl)
 *.gcode

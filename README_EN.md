@@ -24,7 +24,8 @@ A wireless PC telemetry display for cooler fans and PC cases using the affordabl
 ## Download
 
 - **[Download Latest Installer (Releases)](https://github.com/82-nosty/10D-FCD/releases)**
-- Grab `10D_FCD_Setup_vX.X.X.exe` and run the installer.
+  - **Windows**: `10D_FCD_Setup_vX.X.X.exe` (One-click Setup Installer)
+  - **macOS (Apple Silicon M1~M4 / Intel Universal)**: `10D_FCD_macOS_vX.X.X.dmg` (Drag-and-drop DMG)
 
 ---
 

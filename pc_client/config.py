@@ -32,11 +32,16 @@ def get_resource_path(relative_path: str) -> Path:
 # Program Files에 설치되어도 권한 에러 없이 설정/로그/캐시 영구 보존
 # =========================================================================
 def get_user_data_dir() -> Path:
-    appdata = os.getenv('APPDATA')
-    if appdata:
-        data_path = Path(appdata) / "10D_FCD"
+    if sys.platform == "win32":
+        appdata = os.getenv('APPDATA')
+        if appdata:
+            data_path = Path(appdata) / "10D_FCD"
+        else:
+            data_path = Path.home() / ".10D_FCD"
+    elif sys.platform == "darwin":
+        data_path = Path.home() / "Library" / "Application Support" / "10D_FCD"
     else:
-        data_path = Path.home() / ".10D_FCD"
+        data_path = Path.home() / ".config" / "10D_FCD"
     data_path.mkdir(parents=True, exist_ok=True)
     return data_path
 

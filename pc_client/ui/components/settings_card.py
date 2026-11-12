@@ -9,8 +9,16 @@
 import os
 import sys
 import subprocess
-import winreg
 from pathlib import Path
+
+if sys.platform == "win32":
+    try:
+        import winreg
+    except ImportError:
+        winreg = None
+else:
+    winreg = None
+
 from PyQt6.QtWidgets import (QGroupBox, QVBoxLayout, QHBoxLayout, QLabel,
                              QCheckBox, QPushButton, QMessageBox, QFrame)
 from PyQt6.QtCore import Qt, pyqtSignal
@@ -20,6 +28,22 @@ from core.i18n import I18nManager, LANG_KO
 
 REG_KEY_RUN = r"Software\Microsoft\Windows\CurrentVersion\Run"
 REG_APP_NAME = "10D_FCD"
+MAC_LAUNCH_PLIST = Path.home() / "Library" / "LaunchAgents" / "com.nosty.10dfcd.plist"
+
+
+def open_path_native(path: Path):
+    """OS별 기본 탐색기/파인더로 경로 열기"""
+    str_path = str(path)
+    try:
+        if sys.platform == "win32":
+            os.startfile(str_path)
+        elif sys.platform == "darwin":
+            subprocess.Popen(["open", str_path])
+        else:
+            subprocess.Popen(["xdg-open", str_path])
+    except Exception:
+        if sys.platform == "win32":
+            subprocess.Popen(["explorer", str_path])
 
 
 class SettingsCard(QGroupBox):
@@ -151,59 +175,79 @@ class SettingsCard(QGroupBox):
         self.lbl_sec_about.setText("소프트웨어 및 펌웨어 정보" if is_ko else "About Software & Device")
 
     def _check_autostart_reg(self) -> bool:
-        """Windows 레지스트리에 자동 실행 등록 여부 확인"""
-        try:
-            key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REG_KEY_RUN, 0, winreg.KEY_READ)
-            val, _ = winreg.QueryValueEx(key, REG_APP_NAME)
-            winreg.CloseKey(key)
-            return bool(val)
-        except Exception:
-            return False
+        """OS별 자동 실행 등록 여부 확인"""
+        if sys.platform == "win32" and winreg:
+            try:
+                key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REG_KEY_RUN, 0, winreg.KEY_READ)
+                val, _ = winreg.QueryValueEx(key, REG_APP_NAME)
+                winreg.CloseKey(key)
+                return bool(val)
+            except Exception:
+                return False
+        elif sys.platform == "darwin":
+            return MAC_LAUNCH_PLIST.exists()
+        return False
 
     def _on_autostart_toggled(self, checked: bool):
-        """Windows 레지스트리에 시작 프로그램 등록 / 해제"""
+        """OS별 시작 프로그램 등록 / 해제 (Windows 레지스트리 / macOS LaunchAgent)"""
+        is_ko = I18nManager.get_lang() == LANG_KO
         try:
-            key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REG_KEY_RUN, 0, winreg.KEY_SET_VALUE)
-            if checked:
-                # EXE 실행 파일 경로 또는 현재 파이썬 스크립트 실행 경로
-                if getattr(sys, 'frozen', False):
-                    exe_path = f'"{sys.executable}"'
-                else:
-                    bat_path = Path(__file__).resolve().parent.parent.parent / "run_10D_FCD.bat"
-                    if bat_path.exists():
-                        exe_path = f'"{bat_path}"'
+            if sys.platform == "win32" and winreg:
+                key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REG_KEY_RUN, 0, winreg.KEY_SET_VALUE)
+                if checked:
+                    if getattr(sys, 'frozen', False):
+                        exe_path = f'"{sys.executable}"'
                     else:
-                        exe_path = f'"{sys.executable}" "{Path(__file__).resolve().parent.parent.parent / "main.py"}"'
-                winreg.SetValueEx(key, REG_APP_NAME, 0, winreg.REG_SZ, exe_path)
-            else:
-                try:
-                    winreg.DeleteValue(key, REG_APP_NAME)
-                except FileNotFoundError:
-                    pass
-            winreg.CloseKey(key)
+                        bat_path = Path(__file__).resolve().parent.parent.parent / "run_10D_FCD.bat"
+                        if bat_path.exists():
+                            exe_path = f'"{bat_path}"'
+                        else:
+                            exe_path = f'"{sys.executable}" "{Path(__file__).resolve().parent.parent.parent / "main.py"}"'
+                    winreg.SetValueEx(key, REG_APP_NAME, 0, winreg.REG_SZ, exe_path)
+                else:
+                    try:
+                        winreg.DeleteValue(key, REG_APP_NAME)
+                    except FileNotFoundError:
+                        pass
+                winreg.CloseKey(key)
+            elif sys.platform == "darwin":
+                if checked:
+                    MAC_LAUNCH_PLIST.parent.mkdir(parents=True, exist_ok=True)
+                    target_exec = sys.executable if getattr(sys, 'frozen', False) else f"{sys.executable} {Path(__file__).resolve().parent.parent.parent / 'app.py'}"
+                    plist_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.nosty.10dfcd</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>{sys.executable}</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>"""
+                    MAC_LAUNCH_PLIST.write_text(plist_content, encoding="utf-8")
+                else:
+                    if MAC_LAUNCH_PLIST.exists():
+                        MAC_LAUNCH_PLIST.unlink(missing_ok=True)
         except Exception as e:
-            is_ko = I18nManager.get_lang() == LANG_KO
             QMessageBox.warning(
                 self,
                 "시작 프로그램 설정 실패" if is_ko else "Startup Setting Failed",
-                f"레지스트리 등록 오류: {e}"
+                f"등록 오류: {e}"
             )
         self.settings_changed.emit()
 
     def _open_log_folder(self):
-        try:
-            os.startfile(str(LOG_DIR))
-        except Exception as e:
-            subprocess.Popen(["explorer", str(LOG_DIR)])
+        open_path_native(LOG_DIR)
 
     def _open_settings_file(self):
-        try:
-            if SETTINGS_FILE.exists():
-                os.startfile(str(SETTINGS_FILE))
-            else:
-                os.startfile(str(USER_DATA_DIR))
-        except Exception:
-            subprocess.Popen(["explorer", str(USER_DATA_DIR)])
+        if SETTINGS_FILE.exists():
+            open_path_native(SETTINGS_FILE)
+        else:
+            open_path_native(USER_DATA_DIR)
 
     def _confirm_reset(self):
         is_ko = I18nManager.get_lang() == LANG_KO

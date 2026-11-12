@@ -71,11 +71,32 @@ class ThemeEngine:
 
         font_paths = [
             Path(self.themes_dir) / font_name,
+        ]
+
+        # Windows 폰트 경로
+        font_paths.extend([
             Path("C:/Windows/Fonts") / font_name,
             Path("C:/Windows/Fonts/malgun.ttf"),
             Path("C:/Windows/Fonts/malgunbd.ttf"),
             Path("C:/Windows/Fonts/arial.ttf")
-        ]
+        ])
+
+        # macOS 폰트 경로 (AppleSDGothicNeo, Helvetica, Arial)
+        font_paths.extend([
+            Path("/System/Library/Fonts") / font_name,
+            Path("/Library/Fonts") / font_name,
+            Path("/System/Library/Fonts/Supplemental") / font_name,
+            Path("/System/Library/Fonts/AppleSDGothicNeo.ttc"),
+            Path("/System/Library/Fonts/Helvetica.ttc"),
+            Path("/System/Library/Fonts/Supplemental/Arial.ttf"),
+            Path("/Library/Fonts/Arial Unicode.ttf")
+        ])
+
+        # Linux 폰트 경로
+        font_paths.extend([
+            Path("/usr/share/fonts/truetype/nanum/NanumGothic.ttf"),
+            Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+        ])
 
         font = None
         for fp in font_paths:

@@ -24,7 +24,8 @@
 ## 다운로드
 
 - **[최신 버전 다운로드 (Releases)](https://github.com/82-nosty/10D-FCD/releases)**
-- `10D_FCD_Setup_vX.X.X.exe` 파일을 받아 설치하시면 됩니다.
+  - **Windows**: `10D_FCD_Setup_vX.X.X.exe` (원클릭 자동 인스톨러)
+  - **macOS (Apple Silicon M1~M4 / Intel Universal)**: `10D_FCD_macOS_vX.X.X.dmg` (드래그-앤-드롭 설치)
 
 ---
 

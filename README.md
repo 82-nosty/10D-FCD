@@ -24,8 +24,12 @@
 ## 다운로드
 
 - **[최신 버전 다운로드 (Releases)](https://github.com/82-nosty/10D-FCD/releases)**
-  - **Windows**: `10D_FCD_Setup_vX.X.X.exe` (원클릭 자동 인스톨러)
-  - **macOS (Apple Silicon M1~M4 / Intel Universal)**: `10D_FCD_macOS_vX.X.X.dmg` (드래그-앤-드롭 설치)
+  - **Windows**: `10D_FCD_Setup_vX.X.X.exe`
+  - **macOS (Apple Silicon & Intel)**: `10D_FCD_macOS_vX.X.X.dmg` (macOS 12 Monterey 이상 지원)
+
+> **macOS 사용자 참고사항**
+> - 오픈소스 앱 특성상 첫 실행 시 "확인되지 않은 개발자" 경고가 뜨면 더블 클릭 대신 **우클릭(또는 Control+클릭) ➔ [열기]**를 누르면 정상 실행됩니다.
+> - 화면 스트리밍(미러링) 기능 사용 시 **[시스템 설정] ➔ [개인정보 보호 및 보안] ➔ [화면 및 시스템 오디오 녹음]**에서 권한을 허용해야 합니다.
 
 ---
 

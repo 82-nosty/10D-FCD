@@ -24,8 +24,12 @@ A wireless PC telemetry display for cooler fans and PC cases using the affordabl
 ## Download
 
 - **[Download Latest Installer (Releases)](https://github.com/82-nosty/10D-FCD/releases)**
-  - **Windows**: `10D_FCD_Setup_vX.X.X.exe` (One-click Setup Installer)
-  - **macOS (Apple Silicon M1~M4 / Intel Universal)**: `10D_FCD_macOS_vX.X.X.dmg` (Drag-and-drop DMG)
+  - **Windows**: `10D_FCD_Setup_vX.X.X.exe`
+  - **macOS (Apple Silicon & Intel)**: `10D_FCD_macOS_vX.X.X.dmg` (macOS 12 Monterey or later)
+
+> **macOS Note**
+> - On first launch, macOS Gatekeeper may show an "unidentified developer" warning. **Right-click (or Control+click) ➔ [Open]** to run.
+> - If using screen streaming/mirroring mode, enable Screen Recording permission under **[System Settings] ➔ [Privacy & Security] ➔ [Screen & System Audio Recording]**.
 
 ---
 

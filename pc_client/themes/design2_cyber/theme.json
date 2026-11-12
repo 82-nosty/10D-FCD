@@ -1,0 +1,119 @@
+{
+  "name": "Design 2: Cyber Neon",
+  "name_ko": "디자인 2: 사이버 네온 (초대형 디지털)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "네온 마젠타 & 시안 컬러의 대형 디지털 시계와 레이더 스타일 센서 링",
+  "background_color": [5, 8, 15],
+  "elements": [
+    {
+      "type": "text",
+      "text": "%now%",
+      "x": 120,
+      "y": 42,
+      "size": 48,
+      "color": [0, 229, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%yyyy%.%mm%.%dd% // %ss%s",
+      "x": 120,
+      "y": 80,
+      "size": 13,
+      "color": [148, 163, 184],
+      "font": "malgun.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "line",
+      "x1": 30,
+      "y1": 96,
+      "x2": 210,
+      "y2": 96,
+      "color": [0, 229, 255],
+      "width": 2
+    },
+    {
+      "type": "ring",
+      "cx": 120,
+      "cy": 160,
+      "radius": 48,
+      "width": 7,
+      "color1": [255, 0, 128],
+      "color2": [0, 229, 255],
+      "speed": 180
+    },
+    {
+      "type": "text",
+      "text": "CPU %cpu%%",
+      "x": 120,
+      "y": 152,
+      "size": 16,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%c_sta%",
+      "x": 120,
+      "y": 172,
+      "size": 13,
+      "color": [0, 229, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 14,
+      "y": 226,
+      "w": 212,
+      "h": 80,
+      "radius": 12,
+      "fill": [12, 18, 30, 210],
+      "outline": [255, 0, 128, 180]
+    },
+    {
+      "type": "text",
+      "text": "RAM USAGE",
+      "x": 26,
+      "y": 238,
+      "size": 14,
+      "color": [255, 0, 128],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%% (%ram_used_gb%)",
+      "x": 214,
+      "y": 238,
+      "size": 13,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 26,
+      "y": 262,
+      "w": 188,
+      "h": 10,
+      "radius": 5,
+      "bg_color": [30, 20, 45, 255],
+      "fill_color": [255, 0, 128, 255]
+    },
+    {
+      "type": "text",
+      "text": "10D FCD CYBER ENGINE",
+      "x": 120,
+      "y": 288,
+      "size": 11,
+      "color": [100, 116, 139],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    }
+  ]
+}

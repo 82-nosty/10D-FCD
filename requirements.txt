@@ -1,0 +1,13 @@
+# 10D FCD (Fan Cooler Display) - PC Client Dependencies
+# Python 3.10+ recommended
+
+PyQt6>=6.5.0
+Pillow>=10.0.0
+psutil>=5.9.0
+pyserial>=3.5
+numpy>=1.24.0
+mss>=9.0.0
+
+# Build Tool (Required only for building standalone executable)
+pyinstaller>=6.0.0
+

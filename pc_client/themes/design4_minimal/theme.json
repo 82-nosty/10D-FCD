@@ -1,0 +1,136 @@
+{
+  "name": "Design 4: Studio Minimal",
+  "name_ko": "디자인 4: 스튜디오 미니멀 (화이트/슬레이트)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "북유럽풍의 절제된 타이포그래피와 초슬림 라인 게이지",
+  "background_color": [10, 10, 12],
+  "elements": [
+    {
+      "type": "text",
+      "text": "%now%",
+      "x": 24,
+      "y": 28,
+      "size": 38,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%yyyy%.%mm%.%dd%",
+      "x": 26,
+      "y": 72,
+      "size": 12,
+      "color": [100, 116, 139],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "line",
+      "x1": 24,
+      "y1": 100,
+      "x2": 216,
+      "y2": 100,
+      "color": [30, 41, 59],
+      "width": 1
+    },
+    {
+      "type": "text",
+      "text": "PROCESSOR",
+      "x": 24,
+      "y": 120,
+      "size": 11,
+      "color": [148, 163, 184],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%",
+      "x": 216,
+      "y": 120,
+      "size": 14,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "text",
+      "text": "%c_sta%",
+      "x": 216,
+      "y": 140,
+      "size": 10,
+      "color": [100, 116, 139],
+      "font": "malgun.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 24,
+      "y": 158,
+      "w": 192,
+      "h": 4,
+      "radius": 2,
+      "bg_color": [24, 30, 42, 255],
+      "fill_color": [241, 245, 249, 255]
+    },
+    {
+      "type": "line",
+      "x1": 24,
+      "y1": 182,
+      "x2": 216,
+      "y2": 182,
+      "color": [30, 41, 59],
+      "width": 1
+    },
+    {
+      "type": "text",
+      "text": "MEMORY",
+      "x": 24,
+      "y": 202,
+      "size": 11,
+      "color": [148, 163, 184],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%%",
+      "x": 216,
+      "y": 202,
+      "size": 14,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "text",
+      "text": "%r_sta%",
+      "x": 216,
+      "y": 222,
+      "size": 10,
+      "color": [100, 116, 139],
+      "font": "malgun.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 24,
+      "y": 240,
+      "w": 192,
+      "h": 4,
+      "radius": 2,
+      "bg_color": [24, 30, 42, 255],
+      "fill_color": [59, 130, 246, 255]
+    },
+    {
+      "type": "text",
+      "text": "10D STUDIO EDITION",
+      "x": 120,
+      "y": 290,
+      "size": 9,
+      "color": [71, 85, 105],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    }
+  ]
+}

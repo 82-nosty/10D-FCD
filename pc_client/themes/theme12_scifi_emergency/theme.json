@@ -1,0 +1,206 @@
+{
+  "id": "theme12_scifi_emergency",
+  "name": "Design 12: Sci-Fi Emergency Command",
+  "name_ko": "디자인 12: SF 비상 지휘 패널 (오렌지)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "강렬한 비상 오렌지와 블랙 SF 메카닉 인터페이스",
+  "background_color": [
+    10,
+    4,
+    0
+  ],
+  "elements": [
+    {
+      "type": "box",
+      "x": 8,
+      "y": 8,
+      "w": 224,
+      "h": 36,
+      "radius": 0,
+      "fill": [
+        255,
+        85,
+        0,
+        240
+      ],
+      "outline": [
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "EMERGENCY // SYSTEM ALERT",
+      "x": 120,
+      "y": 26,
+      "size": 15,
+      "color": [
+        0,
+        0,
+        0
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "arc_meter",
+      "bind": "cpu",
+      "cx": 120,
+      "cy": 128,
+      "radius": 68,
+      "width": 11,
+      "start_angle": 135,
+      "sweep_angle": 270,
+      "bg_color": [
+        45,
+        18,
+        0
+      ],
+      "fill_color": [
+        255,
+        85,
+        0
+      ]
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%",
+      "x": 120,
+      "y": 118,
+      "size": 42,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "SYNC RATE",
+      "x": 120,
+      "y": 148,
+      "size": 14,
+      "color": [
+        255,
+        85,
+        0
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 8,
+      "y": 210,
+      "w": 224,
+      "h": 102,
+      "radius": 0,
+      "fill": [
+        20,
+        8,
+        0,
+        220
+      ],
+      "outline": [
+        255,
+        85,
+        0,
+        180
+      ]
+    },
+    {
+      "type": "text",
+      "text": "INTERNAL POWER (RAM)",
+      "x": 18,
+      "y": 220,
+      "size": 13,
+      "color": [
+        255,
+        85,
+        0
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%% (%ram_used_gb%)",
+      "x": 222,
+      "y": 220,
+      "size": 13,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 18,
+      "y": 240,
+      "w": 204,
+      "h": 12,
+      "radius": 0,
+      "bg_color": [
+        50,
+        20,
+        0,
+        255
+      ],
+      "fill_color": [
+        255,
+        85,
+        0,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "CLOCK: %c_sta%",
+      "x": 18,
+      "y": 262,
+      "size": 13,
+      "color": [
+        255,
+        160,
+        50
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "TIME %now%:%ss%",
+      "x": 222,
+      "y": 262,
+      "size": 13,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "text",
+      "text": "CORE SYSTEM: ALL CLEAR",
+      "x": 120,
+      "y": 292,
+      "size": 12,
+      "color": [
+        180,
+        80,
+        20
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    }
+  ]
+}

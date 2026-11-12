@@ -1,0 +1,218 @@
+{
+  "id": "theme07_retro_synthwave",
+  "name": "Design 7: 80s Retro Synthwave",
+  "name_ko": "디자인 7: 80s 레트로 신스웨이브",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "네온 핫핑크와 시안 컬러의 강렬한 80년대 레트로 디지털 HUD",
+  "background_color": [
+    12,
+    6,
+    24
+  ],
+  "elements": [
+    {
+      "type": "text",
+      "text": "%now%",
+      "x": 120,
+      "y": 38,
+      "size": 48,
+      "color": [
+        255,
+        0,
+        128
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%yyyy%.%mm%.%dd% // %day_en%",
+      "x": 120,
+      "y": 74,
+      "size": 13,
+      "color": [
+        0,
+        240,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "line",
+      "x1": 20,
+      "y1": 90,
+      "x2": 220,
+      "y2": 90,
+      "color": [
+        255,
+        0,
+        128
+      ],
+      "width": 2
+    },
+    {
+      "type": "ring",
+      "cx": 120,
+      "cy": 150,
+      "radius": 48,
+      "width": 7,
+      "color1": [
+        255,
+        0,
+        128
+      ],
+      "color2": [
+        0,
+        240,
+        255
+      ],
+      "speed": 160
+    },
+    {
+      "type": "text",
+      "text": "SYNTH",
+      "x": 120,
+      "y": 142,
+      "size": 17,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "CORE %cpu%%",
+      "x": 120,
+      "y": 164,
+      "size": 14,
+      "color": [
+        0,
+        240,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 12,
+      "y": 218,
+      "w": 216,
+      "h": 94,
+      "radius": 10,
+      "fill": [
+        20,
+        10,
+        36,
+        210
+      ],
+      "outline": [
+        255,
+        0,
+        128,
+        160
+      ]
+    },
+    {
+      "type": "text",
+      "text": "CPU LOAD",
+      "x": 24,
+      "y": 228,
+      "size": 15,
+      "color": [
+        255,
+        0,
+        128
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%cpu%% (%c_sta%)",
+      "x": 216,
+      "y": 228,
+      "size": 14,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 24,
+      "y": 250,
+      "w": 192,
+      "h": 10,
+      "radius": 4,
+      "bg_color": [
+        40,
+        16,
+        60,
+        255
+      ],
+      "fill_color": [
+        255,
+        0,
+        128,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "RAM MEMORY",
+      "x": 24,
+      "y": 268,
+      "size": 15,
+      "color": [
+        0,
+        240,
+        255
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%% (%ram_used_gb%)",
+      "x": 216,
+      "y": 268,
+      "size": 14,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 24,
+      "y": 290,
+      "w": 192,
+      "h": 10,
+      "radius": 4,
+      "bg_color": [
+        15,
+        35,
+        60,
+        255
+      ],
+      "fill_color": [
+        0,
+        240,
+        255,
+        255
+      ]
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "id": "theme11_arcade_pixel",
+  "name": "Design 11: 8-Bit Arcade Gamer",
+  "name_ko": "디자인 11: 8비트 아케이드 게이머 (HP/MP)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "고전 아케이드 RPG 감성의 HP[CPU]와 MP[RAM] 바 HUD",
+  "background_color": [
+    5,
+    5,
+    8
+  ],
+  "elements": [
+    {
+      "type": "box",
+      "x": 10,
+      "y": 8,
+      "w": 220,
+      "h": 40,
+      "radius": 0,
+      "fill": [
+        20,
+        20,
+        30,
+        240
+      ],
+      "outline": [
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "PLAYER 1 // %now%",
+      "x": 20,
+      "y": 20,
+      "size": 14,
+      "color": [
+        255,
+        215,
+        0
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "LV.%cpu%",
+      "x": 220,
+      "y": 20,
+      "size": 16,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 58,
+      "w": 220,
+      "h": 68,
+      "radius": 0,
+      "fill": [
+        20,
+        15,
+        15,
+        220
+      ],
+      "outline": [
+        239,
+        68,
+        68,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "HP [CPU LOAD]",
+      "x": 20,
+      "y": 68,
+      "size": 14,
+      "color": [
+        239,
+        68,
+        68
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%",
+      "x": 220,
+      "y": 68,
+      "size": 22,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 20,
+      "y": 98,
+      "w": 200,
+      "h": 16,
+      "radius": 0,
+      "bg_color": [
+        50,
+        20,
+        20,
+        255
+      ],
+      "fill_color": [
+        239,
+        68,
+        68,
+        255
+      ]
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 136,
+      "w": 220,
+      "h": 68,
+      "radius": 0,
+      "fill": [
+        15,
+        15,
+        25,
+        220
+      ],
+      "outline": [
+        59,
+        130,
+        246,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "MP [RAM MEMORY]",
+      "x": 20,
+      "y": 146,
+      "size": 14,
+      "color": [
+        59,
+        130,
+        246
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%%",
+      "x": 220,
+      "y": 146,
+      "size": 22,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 20,
+      "y": 176,
+      "w": 200,
+      "h": 16,
+      "radius": 0,
+      "bg_color": [
+        20,
+        25,
+        60,
+        255
+      ],
+      "fill_color": [
+        59,
+        130,
+        246,
+        255
+      ]
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 214,
+      "w": 220,
+      "h": 68,
+      "radius": 0,
+      "fill": [
+        20,
+        20,
+        15,
+        220
+      ],
+      "outline": [
+        234,
+        179,
+        8,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "EXP [SSD C:]",
+      "x": 20,
+      "y": 224,
+      "size": 14,
+      "color": [
+        234,
+        179,
+        8
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%disk%%",
+      "x": 220,
+      "y": 224,
+      "size": 22,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "disk",
+      "x": 20,
+      "y": 254,
+      "w": 200,
+      "h": 16,
+      "radius": 0,
+      "bg_color": [
+        50,
+        40,
+        15,
+        255
+      ],
+      "fill_color": [
+        234,
+        179,
+        8,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "INSERT COIN // 10D FCD",
+      "x": 120,
+      "y": 298,
+      "size": 12,
+      "color": [
+        156,
+        163,
+        175
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "id": "theme09_minimal_bold",
+  "name": "Design 9: Modern Minimal Bold",
+  "name_ko": "디자인 9: 모던 볼드 미니멀 (대형 타이포)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "극도로 정갈한 순백 모노크롬과 52pt 초대형 볼드 시계",
+  "background_color": [
+    10,
+    12,
+    16
+  ],
+  "elements": [
+    {
+      "type": "text",
+      "text": "%now%",
+      "x": 120,
+      "y": 48,
+      "size": 52,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%date%  %day_en%",
+      "x": 120,
+      "y": 88,
+      "size": 14,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "line",
+      "x1": 30,
+      "y1": 108,
+      "x2": 210,
+      "y2": 108,
+      "color": [
+        51,
+        65,
+        85
+      ],
+      "width": 1
+    },
+    {
+      "type": "box",
+      "x": 14,
+      "y": 126,
+      "w": 102,
+      "h": 82,
+      "radius": 8,
+      "fill": [
+        18,
+        22,
+        30,
+        220
+      ],
+      "outline": [
+        45,
+        55,
+        72,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "CPU",
+      "x": 65,
+      "y": 140,
+      "size": 14,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%",
+      "x": 65,
+      "y": 170,
+      "size": 28,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%c_sta%",
+      "x": 65,
+      "y": 194,
+      "size": 11,
+      "color": [
+        0,
+        229,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 124,
+      "y": 126,
+      "w": 102,
+      "h": 82,
+      "radius": 8,
+      "fill": [
+        18,
+        22,
+        30,
+        220
+      ],
+      "outline": [
+        45,
+        55,
+        72,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "RAM",
+      "x": 175,
+      "y": 140,
+      "size": 14,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%ram%%",
+      "x": 175,
+      "y": 170,
+      "size": 28,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%ram_used_gb%",
+      "x": 175,
+      "y": 194,
+      "size": 11,
+      "color": [
+        16,
+        185,
+        129
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 14,
+      "y": 232,
+      "w": 212,
+      "h": 12,
+      "radius": 6,
+      "bg_color": [
+        30,
+        36,
+        48,
+        255
+      ],
+      "fill_color": [
+        248,
+        250,
+        252,
+        255
+      ]
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 14,
+      "y": 256,
+      "w": 212,
+      "h": 12,
+      "radius": 6,
+      "bg_color": [
+        30,
+        36,
+        48,
+        255
+      ],
+      "fill_color": [
+        100,
+        116,
+        139,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "10D FCD · %fps% FPS",
+      "x": 120,
+      "y": 292,
+      "size": 13,
+      "color": [
+        100,
+        116,
+        139
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    }
+  ]
+}

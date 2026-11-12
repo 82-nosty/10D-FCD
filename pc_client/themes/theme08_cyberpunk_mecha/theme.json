@@ -1,0 +1,227 @@
+{
+  "id": "theme08_cyberpunk_mecha",
+  "name": "Design 8: Cyberpunk Mecha HUD",
+  "name_ko": "디자인 8: 사이버펑크 메카 HUD (경고 옐로우)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "중장비 및 메카 로봇 느낌의 앰버 옐로우 인더스트리얼 테마",
+  "background_color": [
+    10,
+    10,
+    8
+  ],
+  "elements": [
+    {
+      "type": "box",
+      "x": 10,
+      "y": 8,
+      "w": 220,
+      "h": 36,
+      "radius": 4,
+      "fill": [
+        250,
+        204,
+        21,
+        230
+      ],
+      "outline": [
+        255,
+        255,
+        255,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "[ CAUTION // MECHA CORE ]",
+      "x": 120,
+      "y": 26,
+      "size": 14,
+      "color": [
+        0,
+        0,
+        0
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "arc_meter",
+      "bind": "cpu",
+      "cx": 120,
+      "cy": 122,
+      "radius": 62,
+      "width": 10,
+      "start_angle": 135,
+      "sweep_angle": 270,
+      "bg_color": [
+        40,
+        36,
+        18
+      ],
+      "fill_color": [
+        250,
+        204,
+        21
+      ]
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%",
+      "x": 120,
+      "y": 114,
+      "size": 38,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "REACTOR OUTPUT",
+      "x": 120,
+      "y": 142,
+      "size": 12,
+      "color": [
+        250,
+        204,
+        21
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 196,
+      "w": 220,
+      "h": 114,
+      "radius": 6,
+      "fill": [
+        18,
+        18,
+        15,
+        230
+      ],
+      "outline": [
+        250,
+        204,
+        21,
+        140
+      ]
+    },
+    {
+      "type": "text",
+      "text": "CPU CLOCK",
+      "x": 20,
+      "y": 206,
+      "size": 14,
+      "color": [
+        250,
+        204,
+        21
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%c_sta%",
+      "x": 220,
+      "y": 206,
+      "size": 14,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 20,
+      "y": 228,
+      "w": 200,
+      "h": 9,
+      "radius": 3,
+      "bg_color": [
+        45,
+        42,
+        25,
+        255
+      ],
+      "fill_color": [
+        250,
+        204,
+        21,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "RAM SYSTEM",
+      "x": 20,
+      "y": 246,
+      "size": 14,
+      "color": [
+        251,
+        146,
+        60
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%% (%ram_used_gb%)",
+      "x": 220,
+      "y": 246,
+      "size": 14,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 20,
+      "y": 268,
+      "w": 200,
+      "h": 9,
+      "radius": 3,
+      "bg_color": [
+        45,
+        30,
+        20,
+        255
+      ],
+      "fill_color": [
+        251,
+        146,
+        60,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "FPS: %fps%  |  SYS OK",
+      "x": 120,
+      "y": 294,
+      "size": 12,
+      "color": [
+        160,
+        160,
+        140
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    }
+  ]
+}

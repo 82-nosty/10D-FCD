@@ -1,0 +1,173 @@
+{
+  "id": "theme06_racing_tacho",
+  "name": "Design 6: Racing Tachometer",
+  "name_ko": "디자인 6: 슈퍼카 타코미터 계기판 (대형 아크)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "스포츠카 계기판 느낌의 270도 대형 아크 게이지와 큼직한 CPU 속도계",
+  "background_color": [
+    6,
+    7,
+    10
+  ],
+  "elements": [
+    {
+      "type": "text",
+      "text": "SPORT CLUSTER",
+      "x": 120,
+      "y": 20,
+      "size": 14,
+      "color": [
+        239,
+        68,
+        68
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%c_sta% // %fps% FPS",
+      "x": 120,
+      "y": 38,
+      "size": 12,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgun.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "arc_meter",
+      "bind": "cpu",
+      "cx": 120,
+      "cy": 138,
+      "radius": 74,
+      "width": 12,
+      "start_angle": 135,
+      "sweep_angle": 270,
+      "bg_color": [
+        30,
+        36,
+        48
+      ],
+      "fill_color": [
+        239,
+        68,
+        68
+      ]
+    },
+    {
+      "type": "text",
+      "text": "%cpu%",
+      "x": 120,
+      "y": 126,
+      "size": 46,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "CPU LOAD %",
+      "x": 120,
+      "y": 158,
+      "size": 13,
+      "color": [
+        239,
+        68,
+        68
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 16,
+      "y": 230,
+      "w": 208,
+      "h": 76,
+      "radius": 10,
+      "fill": [
+        16,
+        20,
+        28,
+        210
+      ],
+      "outline": [
+        45,
+        55,
+        72,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "RAM",
+      "x": 28,
+      "y": 240,
+      "size": 14,
+      "color": [
+        59,
+        130,
+        246
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%% (%ram_used_gb%)",
+      "x": 212,
+      "y": 240,
+      "size": 13,
+      "color": [
+        248,
+        250,
+        252
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 28,
+      "y": 262,
+      "w": 184,
+      "h": 10,
+      "radius": 4,
+      "bg_color": [
+        28,
+        35,
+        48,
+        255
+      ],
+      "fill_color": [
+        59,
+        130,
+        246,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "TIME %now%:%ss%",
+      "x": 120,
+      "y": 288,
+      "size": 12,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    }
+  ]
+}

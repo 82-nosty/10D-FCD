@@ -1,0 +1,227 @@
+{
+  "id": "theme14_anime_aurora",
+  "name": "Design 14: Pastel Aurora Glow",
+  "name_ko": "디자인 14: 파스텔 오로라 네온 (감성 듀얼)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "파스텔 민트와 라벤더, 핑크가 어우러진 부드러운 감성 네온 HUD",
+  "background_color": [
+    12,
+    10,
+    18
+  ],
+  "elements": [
+    {
+      "type": "text",
+      "text": "%now%",
+      "x": 120,
+      "y": 34,
+      "size": 38,
+      "color": [
+        244,
+        114,
+        182
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "%date%  %day_en%",
+      "x": 120,
+      "y": 62,
+      "size": 13,
+      "color": [
+        192,
+        132,
+        252
+      ],
+      "font": "malgun.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "arc_meter",
+      "bind": "cpu",
+      "cx": 120,
+      "cy": 142,
+      "radius": 62,
+      "width": 8,
+      "start_angle": 135,
+      "sweep_angle": 270,
+      "bg_color": [
+        35,
+        20,
+        40
+      ],
+      "fill_color": [
+        244,
+        114,
+        182
+      ]
+    },
+    {
+      "type": "arc_meter",
+      "bind": "ram",
+      "cx": 120,
+      "cy": 142,
+      "radius": 46,
+      "width": 8,
+      "start_angle": 135,
+      "sweep_angle": 270,
+      "bg_color": [
+        20,
+        35,
+        40
+      ],
+      "fill_color": [
+        94,
+        234,
+        212
+      ]
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%",
+      "x": 120,
+      "y": 134,
+      "size": 22,
+      "color": [
+        244,
+        114,
+        182
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "RAM %ram%%",
+      "x": 120,
+      "y": 154,
+      "size": 13,
+      "color": [
+        94,
+        234,
+        212
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 14,
+      "y": 222,
+      "w": 212,
+      "h": 88,
+      "radius": 12,
+      "fill": [
+        22,
+        18,
+        32,
+        220
+      ],
+      "outline": [
+        192,
+        132,
+        252,
+        160
+      ]
+    },
+    {
+      "type": "text",
+      "text": "AURORA CORE",
+      "x": 26,
+      "y": 234,
+      "size": 14,
+      "color": [
+        244,
+        114,
+        182
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%c_sta%",
+      "x": 214,
+      "y": 234,
+      "size": 13,
+      "color": [
+        248,
+        250,
+        252
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 26,
+      "y": 256,
+      "w": 188,
+      "h": 9,
+      "radius": 4,
+      "bg_color": [
+        35,
+        25,
+        50,
+        255
+      ],
+      "fill_color": [
+        244,
+        114,
+        182,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "MEMORY",
+      "x": 26,
+      "y": 272,
+      "size": 13,
+      "color": [
+        94,
+        234,
+        212
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram_used_gb%",
+      "x": 214,
+      "y": 272,
+      "size": 13,
+      "color": [
+        248,
+        250,
+        252
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 26,
+      "y": 292,
+      "w": 188,
+      "h": 9,
+      "radius": 4,
+      "bg_color": [
+        20,
+        40,
+        45,
+        255
+      ],
+      "fill_color": [
+        94,
+        234,
+        212,
+        255
+      ]
+    }
+  ]
+}

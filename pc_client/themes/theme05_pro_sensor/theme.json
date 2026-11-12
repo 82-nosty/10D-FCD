@@ -1,0 +1,318 @@
+{
+  "id": "theme05_pro_sensor",
+  "name": "Design 5: Pro Sensor Panel",
+  "name_ko": "디자인 5: 프로 센서 패널 (하드웨어 모니터)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "CPU/RAM/DISK 3단 고밀도 하드웨어 센서 패널",
+  "background_color": [
+    8,
+    11,
+    18
+  ],
+  "elements": [
+    {
+      "type": "box",
+      "x": 10,
+      "y": 8,
+      "w": 220,
+      "h": 46,
+      "radius": 8,
+      "fill": [
+        15,
+        22,
+        35,
+        230
+      ],
+      "outline": [
+        30,
+        41,
+        59,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "10D SENSOR HUD",
+      "x": 20,
+      "y": 14,
+      "size": 13,
+      "color": [
+        0,
+        229,
+        255
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%now%:%ss%",
+      "x": 20,
+      "y": 28,
+      "size": 18,
+      "color": [
+        248,
+        250,
+        252
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%fps% FPS",
+      "x": 220,
+      "y": 20,
+      "size": 12,
+      "color": [
+        16,
+        185,
+        129
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 60,
+      "w": 220,
+      "h": 78,
+      "radius": 8,
+      "fill": [
+        14,
+        20,
+        32,
+        220
+      ],
+      "outline": [
+        0,
+        229,
+        255,
+        120
+      ]
+    },
+    {
+      "type": "text",
+      "text": "CPU CORE",
+      "x": 22,
+      "y": 68,
+      "size": 14,
+      "color": [
+        0,
+        229,
+        255
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%c_sta%",
+      "x": 105,
+      "y": 69,
+      "size": 12,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%",
+      "x": 218,
+      "y": 66,
+      "size": 24,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 22,
+      "y": 106,
+      "w": 196,
+      "h": 12,
+      "radius": 5,
+      "bg_color": [
+        25,
+        33,
+        48,
+        255
+      ],
+      "fill_color": [
+        0,
+        229,
+        255,
+        255
+      ]
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 144,
+      "w": 220,
+      "h": 78,
+      "radius": 8,
+      "fill": [
+        14,
+        20,
+        32,
+        220
+      ],
+      "outline": [
+        16,
+        185,
+        129,
+        120
+      ]
+    },
+    {
+      "type": "text",
+      "text": "MEMORY",
+      "x": 22,
+      "y": 152,
+      "size": 14,
+      "color": [
+        16,
+        185,
+        129
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram_used_gb%",
+      "x": 105,
+      "y": 153,
+      "size": 12,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%%",
+      "x": 218,
+      "y": 150,
+      "size": 24,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 22,
+      "y": 190,
+      "w": 196,
+      "h": 12,
+      "radius": 5,
+      "bg_color": [
+        25,
+        33,
+        48,
+        255
+      ],
+      "fill_color": [
+        16,
+        185,
+        129,
+        255
+      ]
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 228,
+      "w": 220,
+      "h": 78,
+      "radius": 8,
+      "fill": [
+        14,
+        20,
+        32,
+        220
+      ],
+      "outline": [
+        168,
+        85,
+        247,
+        120
+      ]
+    },
+    {
+      "type": "text",
+      "text": "SSD (C:)",
+      "x": 22,
+      "y": 236,
+      "size": 14,
+      "color": [
+        168,
+        85,
+        247
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%disk_used_gb%",
+      "x": 105,
+      "y": 237,
+      "size": 12,
+      "color": [
+        148,
+        163,
+        184
+      ],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%disk%%",
+      "x": 218,
+      "y": 234,
+      "size": 24,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "disk",
+      "x": 22,
+      "y": 274,
+      "w": 196,
+      "h": 12,
+      "radius": 5,
+      "bg_color": [
+        25,
+        33,
+        48,
+        255
+      ],
+      "fill_color": [
+        168,
+        85,
+        247,
+        255
+      ]
+    }
+  ]
+}

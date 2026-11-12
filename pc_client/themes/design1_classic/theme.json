@@ -1,0 +1,158 @@
+{
+  "name": "Design 1: Classic Core HUD",
+  "name_ko": "디자인 1: 클래식 쿨러 코어 HUD (기본)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "회전하는 쿨러 팬 코어 링과 글래스모피즘 반투명 상하단 센서 HUD",
+  "background_color": [0, 0, 0],
+  "elements": [
+    {
+      "type": "box",
+      "x": 10,
+      "y": 8,
+      "w": 220,
+      "h": 56,
+      "radius": 10,
+      "fill": [14, 17, 24, 190],
+      "outline": [45, 55, 72, 255]
+    },
+    {
+      "type": "text",
+      "text": "%yyyy%.%mm%.%dd%",
+      "x": 22,
+      "y": 14,
+      "size": 13,
+      "color": [148, 163, 184],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%now%:%ss%",
+      "x": 22,
+      "y": 28,
+      "size": 28,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "box",
+      "x": 150,
+      "y": 14,
+      "w": 72,
+      "h": 24,
+      "radius": 6,
+      "fill": [10, 32, 26, 220],
+      "outline": [16, 185, 129, 255]
+    },
+    {
+      "type": "text",
+      "text": "%fps% FPS",
+      "x": 186,
+      "y": 26,
+      "size": 11,
+      "color": [16, 220, 150],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "ring",
+      "cx": 120,
+      "cy": 138,
+      "radius": 54,
+      "width": 6,
+      "color1": [0, 229, 255],
+      "color2": [59, 130, 246],
+      "speed": 140
+    },
+    {
+      "type": "text",
+      "text": "10D FCD",
+      "x": 120,
+      "y": 130,
+      "size": 16,
+      "color": [0, 229, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "COOLER SYNC",
+      "x": 120,
+      "y": 152,
+      "size": 12,
+      "color": [148, 163, 184],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 10,
+      "y": 216,
+      "w": 220,
+      "h": 96,
+      "radius": 10,
+      "fill": [14, 17, 24, 190],
+      "outline": [45, 55, 72, 255]
+    },
+    {
+      "type": "text",
+      "text": "CPU",
+      "x": 20,
+      "y": 224,
+      "size": 16,
+      "color": [56, 189, 248],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%cpu%%  %c_sta%",
+      "x": 220,
+      "y": 224,
+      "size": 14,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 20,
+      "y": 248,
+      "w": 200,
+      "h": 10,
+      "radius": 4,
+      "bg_color": [28, 34, 46, 255],
+      "fill_color": [0, 229, 255, 255]
+    },
+    {
+      "type": "text",
+      "text": "RAM",
+      "x": 20,
+      "y": 266,
+      "size": 16,
+      "color": [16, 185, 129],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%%  %ram_used_gb%",
+      "x": 220,
+      "y": 266,
+      "size": 14,
+      "color": [226, 232, 240],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 20,
+      "y": 290,
+      "w": 200,
+      "h": 10,
+      "radius": 4,
+      "bg_color": [28, 34, 46, 255],
+      "fill_color": [16, 185, 129, 255]
+    }
+  ]
+}

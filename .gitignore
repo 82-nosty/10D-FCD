@@ -1,0 +1,16 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary and local user files
+*.flag
+.user_data/
+dist/
+build/
+Output/
+*.spec
+
+# 3D Print slicer machine code (Keep source 3mf/stl)
+*.gcode
+

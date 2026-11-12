@@ -1,0 +1,159 @@
+{
+  "name": "Design 3: Retro Terminal",
+  "name_ko": "디자인 3: 레트로 터미널 (그린 모노)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "클래식 CRT 모니터 및 매트릭스 감성의 에메랄드 그린 하드웨어 모니터",
+  "background_color": [2, 12, 6],
+  "elements": [
+    {
+      "type": "box",
+      "x": 8,
+      "y": 8,
+      "w": 224,
+      "h": 304,
+      "radius": 4,
+      "fill": [4, 18, 10, 240],
+      "outline": [0, 255, 100, 200]
+    },
+    {
+      "type": "text",
+      "text": ">> 10D_SYSTEM.OS v2.1",
+      "x": 16,
+      "y": 18,
+      "size": 11,
+      "color": [0, 255, 100],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "line",
+      "x1": 16,
+      "y1": 34,
+      "x2": 224,
+      "y2": 34,
+      "color": [0, 180, 70],
+      "width": 1
+    },
+    {
+      "type": "text",
+      "text": "TIME : %now%:%ss%",
+      "x": 16,
+      "y": 44,
+      "size": 18,
+      "color": [200, 255, 200],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "DATE : %yyyy%-%mm%-%dd%",
+      "x": 16,
+      "y": 70,
+      "size": 11,
+      "color": [0, 220, 90],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "line",
+      "x1": 16,
+      "y1": 92,
+      "x2": 224,
+      "y2": 92,
+      "color": [0, 100, 40],
+      "width": 1
+    },
+    {
+      "type": "text",
+      "text": "[CPU TELEMETRY]",
+      "x": 16,
+      "y": 104,
+      "size": 12,
+      "color": [0, 255, 100],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "LOAD  : %cpu%%",
+      "x": 16,
+      "y": 124,
+      "size": 13,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "SPEED : %c_sta%",
+      "x": 16,
+      "y": 144,
+      "size": 11,
+      "color": [0, 220, 90],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 16,
+      "y": 164,
+      "w": 208,
+      "h": 8,
+      "radius": 1,
+      "bg_color": [10, 40, 20, 255],
+      "fill_color": [0, 255, 100, 255]
+    },
+    {
+      "type": "line",
+      "x1": 16,
+      "y1": 188,
+      "x2": 224,
+      "y2": 188,
+      "color": [0, 100, 40],
+      "width": 1
+    },
+    {
+      "type": "text",
+      "text": "[MEMORY TELEMETRY]",
+      "x": 16,
+      "y": 200,
+      "size": 12,
+      "color": [0, 255, 100],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "USAGE : %ram%%",
+      "x": 16,
+      "y": 220,
+      "size": 13,
+      "color": [255, 255, 255],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "POOL  : %r_sta%",
+      "x": 16,
+      "y": 240,
+      "size": 11,
+      "color": [0, 220, 90],
+      "font": "malgun.ttf"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 16,
+      "y": 260,
+      "w": 208,
+      "h": 8,
+      "radius": 1,
+      "bg_color": [10, 40, 20, 255],
+      "fill_color": [0, 255, 100, 255]
+    },
+    {
+      "type": "text",
+      "text": "ONLINE // LINK STATUS: ACTIVE",
+      "x": 16,
+      "y": 284,
+      "size": 10,
+      "color": [0, 180, 70],
+      "font": "malgunbd.ttf"
+    }
+  ]
+}

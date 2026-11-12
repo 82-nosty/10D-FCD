@@ -1,0 +1,223 @@
+{
+  "id": "theme10_space_warp_core",
+  "name": "Design 10: Sci-Fi Warp Core",
+  "name_ko": "디자인 10: SF 워프 코어 리액터 (우주선 HUD)",
+  "author": "10D Official",
+  "version": "1.0",
+  "description": "딥 코스믹 블루와 바이올렛 플라즈마의 우주선 코어 리액터",
+  "background_color": [
+    4,
+    8,
+    16
+  ],
+  "elements": [
+    {
+      "type": "text",
+      "text": "WARP CORE STATUS",
+      "x": 120,
+      "y": 18,
+      "size": 13,
+      "color": [
+        56,
+        189,
+        248
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "REACTIVITY: %cpu%%",
+      "x": 120,
+      "y": 36,
+      "size": 17,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "ring",
+      "cx": 120,
+      "cy": 136,
+      "radius": 62,
+      "width": 8,
+      "color1": [
+        14,
+        165,
+        233
+      ],
+      "color2": [
+        168,
+        85,
+        247
+      ],
+      "speed": 220
+    },
+    {
+      "type": "ring",
+      "cx": 120,
+      "cy": 136,
+      "radius": 42,
+      "width": 5,
+      "color1": [
+        168,
+        85,
+        247
+      ],
+      "color2": [
+        14,
+        165,
+        233
+      ],
+      "speed": -180
+    },
+    {
+      "type": "text",
+      "text": "WARP",
+      "x": 120,
+      "y": 126,
+      "size": 18,
+      "color": [
+        0,
+        229,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "text",
+      "text": "LEVEL %cpu%",
+      "x": 120,
+      "y": 148,
+      "size": 14,
+      "color": [
+        255,
+        255,
+        255
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "mm"
+    },
+    {
+      "type": "box",
+      "x": 12,
+      "y": 218,
+      "w": 216,
+      "h": 92,
+      "radius": 8,
+      "fill": [
+        10,
+        16,
+        30,
+        220
+      ],
+      "outline": [
+        14,
+        165,
+        233,
+        140
+      ]
+    },
+    {
+      "type": "text",
+      "text": "PLASMA ENERGY (RAM)",
+      "x": 22,
+      "y": 228,
+      "size": 13,
+      "color": [
+        168,
+        85,
+        247
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "%ram%% (%ram_used_gb%)",
+      "x": 218,
+      "y": 228,
+      "size": 13,
+      "color": [
+        248,
+        250,
+        252
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "ram",
+      "x": 22,
+      "y": 248,
+      "w": 196,
+      "h": 10,
+      "radius": 5,
+      "bg_color": [
+        20,
+        25,
+        45,
+        255
+      ],
+      "fill_color": [
+        168,
+        85,
+        247,
+        255
+      ]
+    },
+    {
+      "type": "text",
+      "text": "CORE FREQ: %c_sta%",
+      "x": 22,
+      "y": 268,
+      "size": 13,
+      "color": [
+        56,
+        189,
+        248
+      ],
+      "font": "malgunbd.ttf"
+    },
+    {
+      "type": "text",
+      "text": "FPS: %fps%",
+      "x": 218,
+      "y": 268,
+      "size": 13,
+      "color": [
+        16,
+        185,
+        129
+      ],
+      "font": "malgunbd.ttf",
+      "anchor": "ra"
+    },
+    {
+      "type": "bar",
+      "bind": "cpu",
+      "x": 22,
+      "y": 288,
+      "w": 196,
+      "h": 10,
+      "radius": 5,
+      "bg_color": [
+        20,
+        25,
+        45,
+        255
+      ],
+      "fill_color": [
+        14,
+        165,
+        233,
+        255
+      ]
+    }
+  ]
+}

@@ -20,7 +20,8 @@ else:
     winreg = None
 
 from PyQt6.QtWidgets import (QGroupBox, QVBoxLayout, QHBoxLayout, QLabel,
-                             QCheckBox, QPushButton, QMessageBox, QFrame)
+                             QCheckBox, QPushButton, QMessageBox, QFrame,
+                             QListWidget, QListWidgetItem)
 from PyQt6.QtCore import Qt, pyqtSignal
 from config import APP_NAME, APP_VERSION, USER_DATA_DIR, LOG_DIR, SETTINGS_FILE
 from core.i18n import I18nManager, LANG_KO
@@ -102,7 +103,39 @@ class SettingsCard(QGroupBox):
         layout.addWidget(line1)
 
         # =====================================================================
-        # 3. 데이터 관리 및 유지보수
+        # 3. ESP32 저장 Wi-Fi 네트워크 관리 (다중 장소 자동 연결 목록)
+        # =====================================================================
+        self.lbl_sec_wifi = QLabel()
+        self.lbl_sec_wifi.setStyleSheet("color: #00E5FF; font-weight: 700; font-size: 14px;")
+        layout.addWidget(self.lbl_sec_wifi)
+
+        self.list_wifi = QListWidget()
+        self.list_wifi.setFixedHeight(120)
+        self.list_wifi.setStyleSheet(
+            "QListWidget { background-color: #12151D; border: 1px solid #232836; border-radius: 6px; padding: 4px; }"
+            "QListWidget::item { padding: 6px 10px; color: #E2E8F0; border-radius: 4px; }"
+            "QListWidget::item:selected { background-color: #1E293B; color: #00E5FF; }"
+        )
+        layout.addWidget(self.list_wifi)
+
+        row_wifi_btn = QHBoxLayout()
+        row_wifi_btn.setSpacing(10)
+        self.btn_refresh_wifi = QPushButton()
+        self.btn_refresh_wifi.setFixedHeight(36)
+        self.btn_del_wifi = QPushButton()
+        self.btn_del_wifi.setObjectName("StopButton")
+        self.btn_del_wifi.setFixedHeight(36)
+        row_wifi_btn.addWidget(self.btn_refresh_wifi)
+        row_wifi_btn.addWidget(self.btn_del_wifi)
+        layout.addLayout(row_wifi_btn)
+
+        line_wifi = QFrame()
+        line_wifi.setFrameShape(QFrame.Shape.HLine)
+        line_wifi.setStyleSheet("background-color: #232836; max-height: 1px;")
+        layout.addWidget(line_wifi)
+
+        # =====================================================================
+        # 4. 데이터 관리 및 유지보수
         # =====================================================================
         self.lbl_sec_data = QLabel()
         self.lbl_sec_data.setStyleSheet("color: #00E5FF; font-weight: 700; font-size: 14px;")
@@ -166,6 +199,10 @@ class SettingsCard(QGroupBox):
 
         self.lbl_sec_flip.setText(t("settings_flip_sec"))
         self.cb_flip_180.setText(t("settings_flip_cb"))
+
+        self.lbl_sec_wifi.setText("기기 저장 Wi-Fi 네트워크 관리 (자동 연결 목록)" if is_ko else "Saved Wi-Fi Profiles on ESP32 (Auto-Connect)")
+        self.btn_refresh_wifi.setText("저장 목록 불러오기" if is_ko else "Fetch Saved Wi-Fi")
+        self.btn_del_wifi.setText("선택한 Wi-Fi 삭제" if is_ko else "Delete Selected Wi-Fi")
 
         self.lbl_sec_data.setText("데이터 관리 및 유지보수" if is_ko else "Data Management & Maintenance")
         self.btn_open_logs.setText("로그 폴더 열기" if is_ko else "Open Log Folder")
@@ -261,6 +298,33 @@ class SettingsCard(QGroupBox):
         )
         if ret == QMessageBox.StandardButton.Yes:
             self.reset_requested.emit()
+
+    def update_wifi_profiles(self, profiles: list):
+        self.list_wifi.clear()
+        is_ko = I18nManager.get_lang() == LANG_KO
+        if not profiles:
+            item = QListWidgetItem("저장된 Wi-Fi 없음" if is_ko else "No saved Wi-Fi profiles")
+            item.setFlags(Qt.ItemFlag.NoItemFlags)
+            self.list_wifi.addItem(item)
+            return
+
+        for p in profiles:
+            ssid = p.get("ssid", "")
+            p_type = p.get("type", "PSK")
+            p_id = p.get("id", "")
+            if p_type == "EAP":
+                desc = f"{ssid}  (교내/기업용 EAP, ID: {p_id})" if is_ko else f"{ssid}  (Enterprise EAP, ID: {p_id})"
+            else:
+                desc = f"{ssid}  (일반 WPA-PSK)" if is_ko else f"{ssid}  (WPA-PSK)"
+            item = QListWidgetItem(desc)
+            item.setData(Qt.ItemDataRole.UserRole, ssid)
+            self.list_wifi.addItem(item)
+
+    def get_selected_wifi_ssid(self) -> str:
+        item = self.list_wifi.currentItem()
+        if item:
+            return item.data(Qt.ItemDataRole.UserRole) or ""
+        return ""
 
     def get_settings(self) -> dict:
         return {

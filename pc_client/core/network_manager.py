@@ -41,10 +41,13 @@ class StreamWorker(QThread):
 
     def _connect_socket(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(5.0)  # 무선 Wi-Fi 지연 대응 5초 타임아웃
+        sock.settimeout(6.0)  # 무선 Wi-Fi 지연 대응 타임아웃
         sock.connect((self.ip, self.port))
         sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
         sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+        # 소켓 송수신 버퍼 넉넉하게 확장 (네트워크 지연 시 패킷 유실 방지)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 65536)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 65536)
         return sock
 
     def run(self):
@@ -54,17 +57,27 @@ class StreamWorker(QThread):
             sock = self._connect_socket()
             self.log_signal.emit("Connected! Wireless streaming started.",
                                  "CYD 기기 연결 완료. 고속 무선 스트리밍을 시작합니다.")
-            # 연결 즉시 하드웨어 회전 상태(NVS 동기화) 패킷 전송 및 전용 ACK 수거
+            # 연결 즉시 하드웨어 회전 상태 및 PC 로컬 시간 동기화 패킷 전송
             flip_state = self.settings.get("flip_180", False)
             init_cmd = f"FLIP:{1 if flip_state else 0}".encode('ascii')
             cmd_pkt = b'VCMD' + struct.pack('>I', len(init_cmd)) + init_cmd
             try:
                 sock.sendall(cmd_pkt)
-                sock.settimeout(1.5)
+                sock.settimeout(2.0)
                 sock.recv(1)  # VCMD 처리 완료 ACK('K') 안전 수거
-                sock.settimeout(5.0)
             except Exception:
-                sock.settimeout(5.0)
+                pass
+
+            # 외부 NTP 차단망 대응: 스트리밍 시작 시 현재 PC의 epoch 시간을 기기로 전송
+            time_cmd = f"TIME:{int(time.time())}".encode('ascii')
+            time_pkt = b'VCMD' + struct.pack('>I', len(time_cmd)) + time_cmd
+            try:
+                sock.sendall(time_pkt)
+                sock.settimeout(2.0)
+                sock.recv(1)
+            except Exception:
+                pass
+            sock.settimeout(6.0)
         except Exception as e:
             self.log_signal.emit(f"Connection failed: {e}", f"연결 실패: {e}")
             self.connect_failed_signal.emit(str(e))
@@ -153,22 +166,10 @@ class StreamWorker(QThread):
             header = magic + struct.pack('>I', frame_len)
             try:
                 sock.sendall(header + payload_bytes)
-                if is_static_image:
-                    # RAW 프레임은 즉시 ACK 수거
-                    while in_flight > 0:
-                        if not sock.recv(1):
-                            raise ConnectionError("Device disconnected")
-                        in_flight -= 1
-                    ack = sock.recv(1)
-                    if not ack:
-                        raise ConnectionError("Device disconnected")
-                else:
-                    in_flight += 1
-                    if in_flight >= 2:
-                        ack = sock.recv(1)
-                        if not ack:
-                            raise ConnectionError("Device disconnected")
-                        in_flight -= 1
+                # 프레임 전송 후 기기 ACK 수신 (네트워크 레이턴시/지터 대응 엄격 1:1 동기화)
+                ack = sock.recv(1)
+                if not ack or ack != b'K':
+                    raise ConnectionError("Device disconnected or lost ACK")
                 byte_counter += len(header) + frame_len
                 fps_counter += 1
                 reconnect_attempts = 0

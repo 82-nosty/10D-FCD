@@ -7,6 +7,7 @@ from PyQt6.QtWidgets import (QGroupBox, QVBoxLayout, QHBoxLayout, QLabel,
 from PyQt6.QtCore import pyqtSignal
 from core.serial_manager import SerialManager
 from core.i18n import I18nManager, LANG_KO
+from ui.components.enterprise_wifi_dialog import EnterpriseWifiDialog
 
 
 class ConnectionCard(QGroupBox):
@@ -143,8 +144,18 @@ class ConnectionCard(QGroupBox):
     def on_scan_result(self, aps):
         prev_ssid = self.combo_wifi.currentText().strip() or self._saved_ssid
         self.combo_wifi.clear()
+        self._eap_ssids = set()
         if aps:
-            self.combo_wifi.addItems(aps)
+            display_aps = []
+            for ap in aps:
+                if ap.endswith("#EAP"):
+                    raw_ssid = ap[:-4]
+                    self._eap_ssids.add(raw_ssid)
+                    display_aps.append(raw_ssid)
+                else:
+                    display_aps.append(ap)
+            display_aps = list(dict.fromkeys(display_aps))
+            self.combo_wifi.addItems(display_aps)
             if prev_ssid:
                 idx = self.combo_wifi.findText(prev_ssid)
                 if idx >= 0:
@@ -186,10 +197,31 @@ class ConnectionCard(QGroupBox):
             )
             return
 
-        # Wi-Fi 설정 전 스트리밍 안전 정지 신호 방출
-        self.before_send_wifi_signal.emit()
-
         pw = self.edit_pw.text().strip()
+
+        # 보안/엔터프라이즈(802.1X EAP) 네트워크 감지 판별
+        # 1) ESP32 스캔에서 WPA_ENTERPRISE로 감지된 AP
+        # 2) 기업/기관 공통 SSID 패턴
+        eap_set = getattr(self, "_eap_ssids", set())
+        ssid_lower = ssid.lower()
+        is_corp_ssid = any(k in ssid_lower for k in [
+            "enterprise", "corp", "office", "secure", "eap"
+        ])
+        is_enterprise = (ssid in eap_set) or is_corp_ssid
+
+        if is_enterprise:
+            dlg = EnterpriseWifiDialog(ssid, self)
+            if not dlg.exec():
+                return
+            ident = dlg.get_identity()
+            self.before_send_wifi_signal.emit()
+            self._pending_ssid = ssid
+            self._pending_pw = pw
+            self.sm.connect_wifi_eap(ssid, ident, pw)
+            return
+
+        # 일반 가정/개인 공유기 (WPA2-PSK)
+        self.before_send_wifi_signal.emit()
         self._pending_ssid = ssid
         self._pending_pw = pw
         self.sm.connect_wifi(ssid, pw)

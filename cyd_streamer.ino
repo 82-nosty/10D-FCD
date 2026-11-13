@@ -4,6 +4,8 @@
 #include <TJpg_Decoder.h>
 #include <Preferences.h>
 #include <time.h>
+#include "esp_eap_client.h"
+#include "esp_wifi.h"
 #include "korean_font.h"
 #include "clock_font.h"
 
@@ -386,6 +388,8 @@ void checkWifiAndInit() {
   prefs.begin("wifi_store", true);
   String savedSsid = prefs.getString("ssid", "");
   String savedPass = prefs.getString("pass", "");
+  int isEap = prefs.getInt("eap", 0);
+  String savedId = prefs.getString("id", "");
   prefs.end();
 
   if (savedSsid.length() > 0) {
@@ -394,9 +398,18 @@ void checkWifiAndInit() {
     delay(100);
     WiFi.mode(WIFI_STA);
     WiFi.setSleep(false);
-    WiFi.begin(savedSsid.c_str(), savedPass.c_str());
 
-    int timeout = 30;
+    if (isEap == 1 && savedId.length() > 0) {
+      esp_eap_client_set_identity((const unsigned char*)savedId.c_str(), savedId.length());
+      esp_eap_client_set_username((const unsigned char*)savedId.c_str(), savedId.length());
+      esp_eap_client_set_password((const unsigned char*)savedPass.c_str(), savedPass.length());
+      esp_wifi_sta_enterprise_enable();
+      WiFi.begin(savedSsid.c_str());
+    } else {
+      WiFi.begin(savedSsid.c_str(), savedPass.c_str());
+    }
+
+    int timeout = 40;
     while (WiFi.status() != WL_CONNECTED && timeout > 0) {
       delay(500);
       timeout--;
@@ -417,6 +430,17 @@ void saveWifi(const String& ssid, const String& pass) {
   prefs.begin("wifi_store", false);
   prefs.putString("ssid", ssid);
   prefs.putString("pass", pass);
+  prefs.putInt("eap", 0);
+  prefs.putString("id", "");
+  prefs.end();
+}
+
+void saveWifiEap(const String& ssid, const String& id, const String& pass) {
+  prefs.begin("wifi_store", false);
+  prefs.putString("ssid", ssid);
+  prefs.putString("pass", pass);
+  prefs.putInt("eap", 1);
+  prefs.putString("id", id);
   prefs.end();
 }
 
@@ -524,13 +548,57 @@ void loop() {
       for (int i = 0; i < n; ++i) {
         String s = WiFi.SSID(i);
         if (s.length() > 0) {
-          result += s;
+          wifi_auth_mode_t enc = WiFi.encryptionType(i);
+          bool isEnterprise = (enc == WIFI_AUTH_WPA2_ENTERPRISE || enc == WIFI_AUTH_WPA3_ENTERPRISE);
+          result += s + (isEnterprise ? "#EAP" : "");
           if (i < n - 1) result += ",";
         }
       }
       WiFi.scanDelete();
       Serial.println(result);
       showStandbyUI("Scan Done", "검색 완료", "Found " + String(n) + " APs");
+    }
+    else if (cmd.startsWith("CONNECT_EAP:")) {
+      // CONNECT_EAP:ssid,identity,password
+      int c1 = cmd.indexOf(',', 12);
+      if (c1 != -1) {
+        int c2 = cmd.indexOf(',', c1 + 1);
+        if (c2 != -1) {
+          String ssid = cmd.substring(12, c1);
+          String ident = cmd.substring(c1 + 1, c2);
+          String pass = cmd.substring(c2 + 1);
+
+          showStandbyUI("EAP Connect...", "교내 와이파이 접속 중", ssid);
+          WiFi.disconnect(true);
+          delay(100);
+          WiFi.mode(WIFI_STA);
+          WiFi.setSleep(false);
+
+          esp_eap_client_set_identity((const unsigned char*)ident.c_str(), ident.length());
+          esp_eap_client_set_username((const unsigned char*)ident.c_str(), ident.length());
+          esp_eap_client_set_password((const unsigned char*)pass.c_str(), pass.length());
+          esp_wifi_sta_enterprise_enable();
+          WiFi.begin(ssid.c_str());
+
+          int timeout = 50;
+          while (WiFi.status() != WL_CONNECTED && timeout > 0) {
+            delay(500);
+            timeout--;
+          }
+
+          if (WiFi.status() == WL_CONNECTED) {
+            saveWifiEap(ssid, ident, pass);
+            configTime(9 * 3600, 0, "pool.ntp.org", "time.google.com");
+            streamServer.begin();
+            String ipStr = WiFi.localIP().toString();
+            showClockStandbyUI(true);
+            Serial.println("WIFI_CONNECTED:" + ipStr);
+          } else {
+            showSetupNeededUI();
+            Serial.println("WIFI_FAIL");
+          }
+        }
+      }
     }
     else if (cmd.startsWith("CONNECT:")) {
       int comma = cmd.indexOf(',', 8);

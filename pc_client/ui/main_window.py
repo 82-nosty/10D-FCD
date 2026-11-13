@@ -321,7 +321,31 @@ class MainWindow(QMainWindow):
         self.card_media.rb_demo.toggled.connect(self.sync_live_settings)
         self.card_media.rb_file.toggled.connect(self.sync_live_settings)
         self.card_media.rb_screen.toggled.connect(self.sync_live_settings)
+        self.card_settings.btn_refresh_wifi.clicked.connect(self.serial_manager.query_wifi_profiles)
+        self.card_settings.btn_del_wifi.clicked.connect(self.on_delete_wifi_profile)
+        self.serial_manager.wifi_profiles_signal.connect(self.card_settings.update_wifi_profiles)
         self.log_widget.log("10D FCD ready.", "10D FCD 쿨러 제어 시스템이 준비되었습니다.")
+
+    def on_delete_wifi_profile(self):
+        ssid = self.card_settings.get_selected_wifi_ssid()
+        is_ko = I18nManager.get_lang() == LANG_KO
+        if not ssid:
+            QMessageBox.information(
+                self,
+                "선택 필요" if is_ko else "Selection Required",
+                "삭제할 Wi-Fi 네트워크를 목록에서 선택해 주세요." if is_ko else "Please select a Wi-Fi profile from the list."
+            )
+            return
+
+        ret = QMessageBox.question(
+            self,
+            "Wi-Fi 삭제 확인" if is_ko else "Confirm Delete",
+            f"기기에서 [{ssid}] 네트워크 프로필을 삭제하시겠습니까?" if is_ko else f"Delete [{ssid}] from ESP32?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.No
+        )
+        if ret == QMessageBox.StandardButton.Yes:
+            self.serial_manager.delete_wifi_profile(ssid)
 
     def sync_live_settings(self):
         """스트리밍 중에도 위젯 토글/모드/FPS/화질 변경을 즉시 반영"""
@@ -453,6 +477,8 @@ class MainWindow(QMainWindow):
             flip = self.card_settings.get_settings().get("flip_180", False)
             self.serial_manager.set_device_flip(flip)
             self.serial_manager.set_device_language(I18nManager.get_lang())
+            self.serial_manager.sync_device_time()
+            self.serial_manager.query_wifi_profiles()
         else:
             self.lbl_serial_badge.setText(t("badge_serial_off"))
             self.lbl_serial_badge.setStyleSheet(

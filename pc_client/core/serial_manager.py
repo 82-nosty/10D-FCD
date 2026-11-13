@@ -15,6 +15,7 @@ class SerialManager(QObject):
     error_signal = pyqtSignal(str, str)  # (title, detail_msg) -> UI 팝업용
     wifi_connected_signal = pyqtSignal(str)
     scan_result_signal = pyqtSignal(list)
+    wifi_profiles_signal = pyqtSignal(list)
     busy_signal = pyqtSignal(bool)
 
     def __init__(self, baudrate=921600):
@@ -90,6 +91,18 @@ class SerialManager(QObject):
         except Exception as e:
             self.log_signal.emit(f"Failed to set flip: {e}", f"기기 회전 설정 실패: {e}")
 
+    def sync_device_time(self):
+        """PC의 현재 로컬 타임스탬프를 기기로 전송하여 NTP 차단 환경에서도 완벽한 시계 보정"""
+        if not self.is_connected():
+            return
+        try:
+            now_epoch = int(time.time())
+            cmd = f"SET_TIME:{now_epoch}\n"
+            self.ser.write(cmd.encode('utf-8'))
+            self.log_signal.emit(f"PC time synced to device: {now_epoch}", "PC 시스템 시간이 기기와 동기화되었습니다.")
+        except Exception as e:
+            self.log_signal.emit(f"Time sync error: {e}", f"시간 동기화 오류: {e}")
+
     def query_device_ip(self):
         """ESP32에 현재 할당된 Wi-Fi IP 조회 요청"""
         if not self.is_connected():
@@ -108,6 +121,54 @@ class SerialManager(QObject):
                     return
         except Exception:
             pass
+
+    def query_wifi_profiles(self):
+        """ESP32 NVS에 저장된 다중 Wi-Fi 프로필 목록 조회"""
+        if not self.is_connected():
+            return
+
+        def _query_thread():
+            try:
+                self.ser.reset_input_buffer()
+                self.ser.write(b"GET_WIFI_PROFILES\n")
+                start = time.time()
+                while time.time() - start < 2.0:
+                    line = self.ser.readline().decode('utf-8', errors='ignore').strip()
+                    if line.startswith("WIFI_PROFILES:"):
+                        payload = line[14:].strip()
+                        profiles = []
+                        if payload:
+                            items = payload.split(";")
+                            for it in items:
+                                parts = it.split("|")
+                                if len(parts) >= 2:
+                                    profiles.append({
+                                        "ssid": parts[0],
+                                        "type": parts[1],
+                                        "id": parts[2] if len(parts) > 2 else ""
+                                    })
+                        self.wifi_profiles_signal.emit(profiles)
+                        self.log_signal.emit(f"Fetched {len(profiles)} saved Wi-Fi profiles from ESP32.",
+                                             f"기기에 저장된 {len(profiles)}개의 Wi-Fi 프로필 목록을 불러왔습니다.")
+                        return
+            except Exception as e:
+                self.log_signal.emit(f"Failed to fetch profiles: {e}", f"프로필 조회 실패: {e}")
+
+        threading.Thread(target=_query_thread, daemon=True).start()
+
+    def delete_wifi_profile(self, ssid: str):
+        """ESP32 NVS에서 특정 Wi-Fi 프로필 삭제"""
+        if not self.is_connected():
+            return
+        try:
+            cmd = f"DEL_WIFI_PROFILE:{ssid}\n"
+            self.ser.write(cmd.encode('utf-8'))
+            self.log_signal.emit(f"Requested deletion of profile [{ssid}] from ESP32.",
+                                 f"기기에서 [{ssid}] Wi-Fi 프로필 삭제를 요청했습니다.")
+            # 삭제 후 목록 새로고침
+            threading.Timer(0.3, self.query_wifi_profiles).start()
+        except Exception as e:
+            self.log_signal.emit(f"Delete profile error: {e}", f"프로필 삭제 오류: {e}")
 
     def scan_wifi(self):
         if not self.is_connected():
@@ -195,3 +256,49 @@ class SerialManager(QObject):
                 self.busy_signal.emit(False)
 
         threading.Thread(target=_connect_thread, daemon=True).start()
+
+    def connect_wifi_eap(self, ssid, identity, password):
+        if not self.is_connected():
+            return
+
+        def _connect_eap_thread():
+            self.busy_signal.emit(True)
+            self.log_signal.emit(f"Connecting ESP32 to EAP {ssid} (ID: {identity})...",
+                                 f"ESP32에 교내 와이파이 {ssid} (ID: {identity}) 연결 요청 전송 중...")
+            is_ko = I18nManager.get_lang() == LANG_KO
+            try:
+                self.ser.reset_input_buffer()
+                cmd = f"CONNECT_EAP:{ssid},{identity},{password}\n"
+                self.ser.write(cmd.encode('utf-8'))
+
+                start = time.time()
+                while time.time() - start < 30.0:
+                    line = self.ser.readline().decode('utf-8', errors='ignore').strip()
+                    if line.startswith("WIFI_CONNECTED:"):
+                        ip = line.split(":", 1)[1].strip()
+                        self.wifi_connected_signal.emit(ip)
+                        self.log_signal.emit(f"Enterprise Wi-Fi connected. IP: {ip}", f"엔터프라이즈 와이파이 연결 성공. 기기 IP: {ip}")
+                        self.busy_signal.emit(False)
+                        return
+                    elif line == "WIFI_FAIL":
+                        self.log_signal.emit("EAP Wi-Fi connection failed.", "엔터프라이즈 와이파이 접속 실패. ID/PW 확인 필요.")
+                        self.error_signal.emit(
+                            "와이파이 연결 실패" if is_ko else "EAP Connection Failed",
+                            f"[{ssid}] 네트워크에 접속하지 못했습니다.\n\n• 아이디와 비밀번호가 일치하는지 확인하세요.\n• 해당 AP가 2.4GHz를 지원하는지 확인하세요." if is_ko
+                            else f"Failed to join [{ssid}].\n\n• Check your Identity and Password.\n• Ensure 2.4GHz is supported."
+                        )
+                        self.busy_signal.emit(False)
+                        return
+
+                self.log_signal.emit("EAP Wi-Fi connection timed out.", "엔터프라이즈 와이파이 연결 응답 시간 초과.")
+                self.error_signal.emit(
+                    "연결 시간 초과" if is_ko else "Connection Timeout",
+                    "교내 와이파이 접속 응답이 없습니다. 기기 화면 상태를 확인해 주세요." if is_ko else "No response during Enterprise Wi-Fi connection."
+                )
+            except Exception as e:
+                self.log_signal.emit(f"EAP setup error: {e}", f"교내 와이파이 설정 오류: {e}")
+                self.error_signal.emit("와이파이 설정 오류" if is_ko else "Wi-Fi Setup Error", str(e))
+            finally:
+                self.busy_signal.emit(False)
+
+        threading.Thread(target=_connect_eap_thread, daemon=True).start()
